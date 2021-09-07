@@ -10,26 +10,51 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const CIRCLE_SIZE = 100;
 const Circle = ({onPress, animatedValue}) => {
+  var theNumber=0
+  const inputRange = [0, 0.001, 0.5, 0.5001, 1];
+  const containerBg = animatedValue.interpolate({
+    inputRange,
+    outputRange: ['gold', 'gold', 'gold', '#444', '#444'],
+  });
+  const circleBg = animatedValue.interpolate({
+    inputRange,
+    outputRange: ['#444', '#444', '#444', 'gold', 'gold'],
+  });
   return (
-    <View style={[StyleSheet.absoluteFillObject, styles.circelContainer]}>
+    <Animated.View
+      style={[
+        StyleSheet.absoluteFillObject,
+        styles.circelContainer,
+        {backgroundColor: containerBg},
+      ]}>
       <Animated.View
         style={[
           styles.circle,
+
           {
+            backgroundColor: circleBg,
             transform: [
               {
                 perspective: 400,
               },
               {
                 rotateY: animatedValue.interpolate({
-                  inputRange: [0, 0.5, 1],
-                  outputRange: ['0deg', '-90deg', '-180deg'],
+                  inputRange: [0, 0.5, 1, 1.5, 2, 2.5, 3],
+                  outputRange: [
+                    '0deg',
+                    '-90deg',
+                    '-180deg',
+                    '-270deg',
+                    '-360deg',
+                    '-450deg',
+                    '-540deg',
+                  ],
                 }),
               },
               {
                 scale: animatedValue.interpolate({
-                  inputRange: [0, 0.5, 1],
-                  outputRange: [1, 8, 1],
+                  inputRange: [0, 0.5, 1, 1.5, 2, 2.5, 3],
+                  outputRange: [1, 8, 1, 8, 1, 8, 1],
                 }),
               },
               {
@@ -50,7 +75,7 @@ const Circle = ({onPress, animatedValue}) => {
           </View>
         </TouchableOpacity>
       </Animated.View>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -60,11 +85,14 @@ const MindBlowingAnimated = () => {
   const animation = toValue => {
     Animated.timing(animatedValue, {
       toValue,
-      duration: 3000,
+      duration: 1000,
       useNativeDriver: false,
     }).start();
   };
-  const onPress = () => {};
+  const onPress = () => {
+    setIndex(index === 3 ? 0 : index + 1);
+    animation(index);
+  };
 
   return (
     <View style={styles.container}>
