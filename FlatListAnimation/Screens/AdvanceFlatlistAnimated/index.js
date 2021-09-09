@@ -17,7 +17,55 @@ const LOGO_HEIGHT = 40;
 const DOT_SIZE = 40;
 const TICKER_HEIGHT = 40;
 const CIRCLE_SIZE = width * 0.6;
-
+const Circle = ({scrollX}) => {
+  return (
+    <View
+      style={[
+        StyleSheet.absoluteFillObject,
+        styles.circleContainer,
+      ]}>
+      {data.map(({color}, index) => {
+        const inputRange = [(index-0.6)*width,index*width,(index+0.6)*width]
+        const scale= scrollX.interpolate({
+          inputRange,
+          outputRange:[0,1,0],
+          extrapolate:'clamp'
+        })
+        const opacity = scrollX.interpolate({
+          inputRange,
+          outputRange:[0,1,0],
+        })
+        return (
+          <Animated.View
+            key={index}
+            style={[styles.circle, {backgroundColor: color,opacity,
+            transform:[{scale}]
+            }]}></Animated.View>
+        );
+      })}
+    </View>
+  );
+};
+const Ticker = ({scrollX}) => {
+  const inputRange = [-width, 0, width];
+  const translateY = scrollX.interpolate({
+    inputRange,
+    outputRange: [TICKER_HEIGHT, 0, -TICKER_HEIGHT],
+  });
+  return (
+    <View style={styles.tickerContainer}>
+      <Animated.View style={{transform: [{translateY}]}}>
+        {data.map(({type}, index) => {
+          return (
+            <Text key={index} style={styles.tickerText}>
+              {type}
+            </Text>
+          );
+        })}
+      </Animated.View>
+    </View>
+  );
+};
 const Item = ({imageUri, heading, description, index, scrollX}) => {
   const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
   const inputRangeOpacity = [
@@ -85,9 +133,18 @@ const Item = ({imageUri, heading, description, index, scrollX}) => {
     </View>
   );
 };
-const Pagination = () => {
+const Pagination = ({scrollX}) => {
+  const inputRange=[-width,0,width]
+  const translateX = scrollX.interpolate({
+    inputRange,
+    outputRange:[-DOT_SIZE,0,DOT_SIZE],
+  })
   return (
     <View style={styles.pagination}>
+    <Animated.View style={[styles.paginationIndicator,{left:0,position:'absolute',transform:[{
+      translateX
+    }]}]}>
+    </Animated.View>
       {data.map(item => {
         return (
           <View key={item.key} style={styles.paginationDotContainer}>
@@ -107,6 +164,7 @@ const AdvanceFlatListAnimated = () => {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" hidden />
+      <Circle scrollX={scrollX} />
       <Animated.FlatList
         keyExtractor={item => item.key}
         data={data}
@@ -117,17 +175,21 @@ const AdvanceFlatListAnimated = () => {
         showsHorizontalScrollIndicator={false}
         horizontal
         onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
+          [{nativeEvent: {contentOffset: {x: scrollX}}}],  
+          // {listener: (event) => console.log(event.nativeEvent.contentOffset)},
           {
             useNativeDriver: true,
           },
+         
+        
         )}
         scrollEventThrottle={16}></Animated.FlatList>
       <Image
         style={styles.logo}
         source={require('./assets/ue_black_logo.png')}
       />
-      <Pagination />
+      <Pagination scrollX={scrollX} />
+      <Ticker scrollX={scrollX} />
     </View>
   );
 };
@@ -146,7 +208,7 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     width: width,
-    height: width,
+    height: width * 2,
     resizeMode: 'contain',
     flex: 1,
   },
@@ -214,7 +276,7 @@ const styles = StyleSheet.create({
   },
   tickerContainer: {
     position: 'absolute',
-    top: 40,
+    top: 60,
     left: 20,
     overflow: 'hidden',
     height: TICKER_HEIGHT,

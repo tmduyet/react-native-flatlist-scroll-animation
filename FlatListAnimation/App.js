@@ -15,6 +15,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MindBlowingAnimated from './Screens/Mind-blowing-transition-animation';
 import AdvanceFlatListAnimated from './Screens/AdvanceFlatlistAnimated';
+import ExpandDemo from './Screens/demo/ExpandDemo';
+
 function HomeScreen(props) {
   console.log('props',props);
   return (
@@ -36,6 +38,7 @@ const App = () => {
   // </NavigationContainer>
   // <MindBlowingAnimated></MindBlowingAnimated>
   <AdvanceFlatListAnimated></AdvanceFlatListAnimated>
+  // <ExpandDemo></ExpandDemo>
   );
 };
 
