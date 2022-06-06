@@ -79,12 +79,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     borderColor: 'black',
+    overflow:'hidden'
   },
   upContainer: {
     width: '100%',
     borderRadius: 10,
     borderWidth: 1,
     alignItems: 'center',
+    overflow:'hidden'
   },
   chevButton: {
     width: '100%',

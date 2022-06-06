@@ -39,16 +39,13 @@ const Circle = ({onPress, animatedValue}) => {
               },
               {
                 rotateY: animatedValue.interpolate({
-                  inputRange: [0, 0.5, 1, 1.5, 2, 2.5, 3],
+                  inputRange: [0, 0.5, 1],
                   outputRange: [
                     '0deg',
                     '-90deg',
                     '-180deg',
-                    '-270deg',
-                    '-360deg',
-                    '-450deg',
-                    '-540deg',
                   ],
+              
                 }),
               },
               {
@@ -90,7 +87,7 @@ const MindBlowingAnimated = () => {
     }).start();
   };
   const onPress = () => {
-    setIndex(index === 3 ? 0 : index + 1);
+    setIndex(index === 1? 0 : 1);
     animation(index);
   };
 
