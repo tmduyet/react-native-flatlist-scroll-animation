@@ -1,5 +1,4 @@
-
-import React, { lazy } from 'react';
+import React, {lazy} from 'react';
 import {
   Button,
   SafeAreaView,
@@ -11,15 +10,16 @@ import {
   View,
 } from 'react-native';
 import DialFlatListAnimation from './Screens/DialFlatListAnimation';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MindBlowingAnimated from './Screens/Mind-blowing-transition-animation';
 import AdvanceFlatListAnimated from './Screens/AdvanceFlatlistAnimated';
 import ExpandDemo from './Screens/demo/ExpandDemo';
 import TinderSwipe from './Screens/TinderSwipe/TinderSwipe';
+import ImageHeader from './Screens/ImageHeader/ImageHeader';
+import SharedElementTrans from './Screens/SharedElementTrans';
 
 function HomeScreen(props) {
-  console.log('props',props);
   return (
     <View style={{flex: 1}}>
       <Button
@@ -32,31 +32,44 @@ function HomeScreen(props) {
         onPress={() => {
           props.navigation.navigate('MindBlowingAnimated');
         }}
-        title={'MindBlowingAnimated'}
+        title={'Mind Blowing Animated'}
       />
       <Button
         onPress={() => {
           props.navigation.navigate('AdvanceFlatListAnimated');
         }}
-        title={'AdvanceFlatListAnimated'}
+        title={'Advance Flat List Animated'}
       />
       <Button
         onPress={() => {
           props.navigation.navigate('ExpandDemo');
         }}
-        title={'ExpandDemo'}
+        title={'Expand Demo'}
       />
       <Button
         onPress={() => {
           props.navigation.navigate('TinderSwipe');
         }}
-        title={'TinderSwipe'}
+        title={'Tinder Swipe'}
       />
+      <Button
+        onPress={() => {
+          props.navigation.navigate('ImageHeader');
+        }}
+        title={'Image Header'}
+      />
+      {/* <Button
+        onPress={() => {
+          props.navigation.navigate('ShareElementTrans');
+        }}
+        title={'Shared ElementTrans'}
+      /> */}
     </View>
   );
 }
 
 const Stack = createNativeStackNavigator();
+
 const App = () => {
   return (
     <NavigationContainer>
@@ -75,11 +88,15 @@ const App = () => {
           component={AdvanceFlatListAnimated}
         />
         <Stack.Screen name="ExpandDemo" component={ExpandDemo} />
+        <Stack.Screen name="TinderSwipe" component={TinderSwipe} />
+
         <Stack.Screen
-        options={{
-          headerShown:true
-        }}
-        name="TinderSwipe" component={TinderSwipe} />
+          options={{
+            headerShown: false,
+          }}
+          name="ImageHeader"
+          component={ImageHeader}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

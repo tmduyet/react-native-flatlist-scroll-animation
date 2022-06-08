@@ -4,7 +4,6 @@ import {COLORS} from './Colors';
 
 export default function Choice(props) {
   const color = COLORS[props.type];
-  console.log(color);
   return (
     <View style={[styles.Container, {borderColor: color}]}>
       <Text style={[styles.txtChoice, {color: color}]}>{props.type}</Text>

@@ -19,28 +19,29 @@ const TICKER_HEIGHT = 40;
 const CIRCLE_SIZE = width * 0.6;
 const Circle = ({scrollX}) => {
   return (
-    <View
-      style={[
-        StyleSheet.absoluteFillObject,
-        styles.circleContainer,
-      ]}>
+    <View style={[StyleSheet.absoluteFillObject, styles.circleContainer]}>
       {data.map(({color}, index) => {
-        const inputRange = [(index-0.6)*width,index*width,(index+0.6)*width]
-        const scale= scrollX.interpolate({
+        const inputRange = [
+          (index - 0.6) * width,
+          index * width,
+          (index + 0.6) * width,
+        ];
+        const scale = scrollX.interpolate({
           inputRange,
-          outputRange:[0,1,0],
-          extrapolate:'clamp'
-        })
+          outputRange: [0, 1, 0],
+          extrapolate: 'clamp',
+        });
         const opacity = scrollX.interpolate({
           inputRange,
-          outputRange:[0,1,0],
-        })
+          outputRange: [0, 1, 0],
+        });
         return (
           <Animated.View
             key={index}
-            style={[styles.circle, {backgroundColor: color,opacity,
-            transform:[{scale}]
-            }]}></Animated.View>
+            style={[
+              styles.circle,
+              {backgroundColor: color, opacity, transform: [{scale}]},
+            ]}></Animated.View>
         );
       })}
     </View>
@@ -134,17 +135,26 @@ const Item = ({imageUri, heading, description, index, scrollX}) => {
   );
 };
 const Pagination = ({scrollX}) => {
-  const inputRange=[-width,0,width]
+  const inputRange = [-width, 0, width];
   const translateX = scrollX.interpolate({
     inputRange,
-    outputRange:[-DOT_SIZE,0,DOT_SIZE],
-  })
+    outputRange: [-DOT_SIZE, 0, DOT_SIZE],
+  });
   return (
     <View style={styles.pagination}>
-    <Animated.View style={[styles.paginationIndicator,{left:0,position:'absolute',transform:[{
-      translateX
-    }]}]}>
-    </Animated.View>
+      <Animated.View
+        style={[
+          styles.paginationIndicator,
+          {
+            left: 0,
+            position: 'absolute',
+            transform: [
+              {
+                translateX,
+              },
+            ],
+          },
+        ]}></Animated.View>
       {data.map(item => {
         return (
           <View key={item.key} style={styles.paginationDotContainer}>
@@ -175,13 +185,10 @@ const AdvanceFlatListAnimated = () => {
         showsHorizontalScrollIndicator={false}
         horizontal
         onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],  
-          // {listener: (event) => console.log(event.nativeEvent.contentOffset)},
+          [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {
             useNativeDriver: true,
           },
-         
-        
         )}
         scrollEventThrottle={16}></Animated.FlatList>
       <Image
