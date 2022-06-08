@@ -52,18 +52,18 @@ function HomeScreen(props) {
         }}
         title={'Tinder Swipe'}
       />
-      <Button
+      {/* <Button
         onPress={() => {
           props.navigation.navigate('ImageHeader');
         }}
         title={'Image Header'}
-      />
-      {/* <Button
-        onPress={() => {
-          props.navigation.navigate('ShareElementTrans');
-        }}
-        title={'Shared ElementTrans'}
       /> */}
+      <Button
+        onPress={() => {
+          props.navigation.navigate('SharedElementTrans');
+        }}
+        title={'SharedElementTrans'}
+      />
     </View>
   );
 }
@@ -89,14 +89,21 @@ const App = () => {
         />
         <Stack.Screen name="ExpandDemo" component={ExpandDemo} />
         <Stack.Screen name="TinderSwipe" component={TinderSwipe} />
-
         <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="SharedElementTrans"
+          component={SharedElementTrans}
+        />
+
+        {/* <Stack.Screen
           options={{
             headerShown: false,
           }}
           name="ImageHeader"
           component={ImageHeader}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

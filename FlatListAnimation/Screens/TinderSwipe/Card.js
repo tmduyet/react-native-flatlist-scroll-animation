@@ -24,18 +24,18 @@ export default function Card({
   const likeOpacity = swipe.x.interpolate({
     inputRange: [25, ACTION_OFFSET],
     outputRange: [0, 1],
-    extrapolate:'clamp'
+    extrapolate: 'clamp',
   });
   const nopeOpacity = swipe.x.interpolate({
     inputRange: [-ACTION_OFFSET, -25],
     outputRange: [1, 0],
     extrapolate: 'clamp',
   });
-   const superLikeOpcity = swipe.y.interpolate({
-     inputRange: [-100,0],
-     outputRange: [1, 0],
-     extrapolate: 'clamp',
-   });
+  const superLikeOpcity = swipe.y.interpolate({
+    inputRange: [-100, 0],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
   const RenderChoice = useCallback(() => {
     return (
       <>
@@ -74,8 +74,9 @@ export default function Card({
     outputRange: ['8deg', '0deg', '-8deg'],
   });
   const AnimatedSwipe = {
-    transform: [...swipe.getTranslateTransform(), {rotate}],
+    transform: [{translateX: swipe.x}, {translateY: swipe.y}, {rotate}],
   };
+  // ...swipe.getTranslateTransform()
   return (
     <Animated.View
       style={[styles.CardContainer, isFirst && AnimatedSwipe]}
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     right: 50,
     transform: [{rotate: '30deg'}],
   },
-  CenterChoice:{
-    alignSelf:'center'
-  }
+  CenterChoice: {
+    alignSelf: 'center',
+  },
 });

@@ -6,7 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const TopNavigation = props => {
   const safeArea = useSafeArea();
 
-  const {title, scrollA} = props;
+  const {title, scrollA, navigation,onPress} = props;
   const isFloating = !!scrollA;
   const [isTransparent, setTransparent] = useState(isFloating);
 
@@ -31,7 +31,10 @@ const TopNavigation = props => {
       />
       <View style={styles.container(safeArea, isFloating, isTransparent)}>
         <TouchableOpacity
-          onPress={() => props.navigation.goBack()}
+          onPress={() => {
+            navigation.goBack();
+            onPress()
+          }}
           style={{
             position: 'absolute',
             left: 10,
@@ -40,6 +43,7 @@ const TopNavigation = props => {
             height: 35,
             justifyContent: 'center',
             alignItems: 'center',
+            zIndex: 100,
           }}>
           <FontAwesome
             color={isTransparent ? '#fff' : '#000'}
