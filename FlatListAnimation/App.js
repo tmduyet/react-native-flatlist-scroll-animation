@@ -18,6 +18,9 @@ import ExpandDemo from './Screens/demo/ExpandDemo';
 import TinderSwipe from './Screens/TinderSwipe/TinderSwipe';
 import ImageHeader from './Screens/ImageHeader/ImageHeader';
 import SharedElementTrans from './Screens/SharedElementTrans';
+import HorizontalFlatlist from './Screens/HorizontalFlatlistAnimated';
+import DragToSort from './Screens/DragToSort';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 function HomeScreen(props) {
   return (
@@ -64,6 +67,18 @@ function HomeScreen(props) {
         }}
         title={'SharedElementTrans'}
       />
+      <Button
+        onPress={() => {
+          props.navigation.navigate('HorizontalFlatlist');
+        }}
+        title={'HorizontalFlatlist'}
+      />
+      <Button
+        onPress={() => {
+          props.navigation.navigate('DragToSort');
+        }}
+        title={'DragToSort'}
+      />
     </View>
   );
 }
@@ -72,40 +87,47 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen
-          name="DialFlatListAnimation"
-          component={DialFlatListAnimation}
-        />
-        <Stack.Screen
-          name="MindBlowingAnimated"
-          component={MindBlowingAnimated}
-        />
-        <Stack.Screen
-          name="AdvanceFlatListAnimated"
-          component={AdvanceFlatListAnimated}
-        />
-        <Stack.Screen name="ExpandDemo" component={ExpandDemo} />
-        <Stack.Screen name="TinderSwipe" component={TinderSwipe} />
-        <Stack.Screen
-          options={{
-            headerShown: false,
-          }}
-          name="SharedElementTrans"
-          component={SharedElementTrans}
-        />
+    <GestureHandlerRootView style={{flex: 1}}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen
+            name="DialFlatListAnimation"
+            component={DialFlatListAnimation}
+          />
+          <Stack.Screen
+            name="MindBlowingAnimated"
+            component={MindBlowingAnimated}
+          />
+          <Stack.Screen
+            name="AdvanceFlatListAnimated"
+            component={AdvanceFlatListAnimated}
+          />
+          <Stack.Screen name="ExpandDemo" component={ExpandDemo} />
+          <Stack.Screen name="TinderSwipe" component={TinderSwipe} />
+          <Stack.Screen
+            name="HorizontalFlatlist"
+            component={HorizontalFlatlist}
+          />
+          <Stack.Screen name="DragToSort" component={DragToSort} />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="SharedElementTrans"
+            component={SharedElementTrans}
+          />
 
-        {/* <Stack.Screen
+          {/* <Stack.Screen
           options={{
             headerShown: false,
           }}
           name="ImageHeader"
           component={ImageHeader}
         /> */}
-      </Stack.Navigator>
-    </NavigationContainer>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 };
 

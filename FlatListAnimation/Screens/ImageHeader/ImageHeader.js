@@ -20,33 +20,29 @@ export default function ImageHeader(props) {
   const scrollA = useRef(new Animated.Value(0)).current;
   const textAppear = useRef(new Animated.Value(0)).current;
 
-
   useEffect(() => {
-    Animated.timing(textAppear,{
-      duration:200,
-      toValue:1,
-      useNativeDriver:true
-    }).start()
-  }, [])
-  
+    Animated.timing(textAppear, {
+      duration: 200,
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  }, []);
   return (
     <View style={{flex: 1}}>
       <TopNavigation
         navigation={props.navigation}
-        onPress={()=>{
- 
-            Animated.timing(textAppear, {
-              duration: 200,
-              toValue: 0,
-              useNativeDriver: true,
-            }).start();
-    
+        onPress={() => {
+          Animated.timing(textAppear, {
+            duration: 200,
+            toValue: 0,
+            useNativeDriver: true,
+          }).start();
         }}
         title="Shiba Inu"
         scrollA={scrollA}
       />
       <Animated.ScrollView
-      bounces={false}
+        bounces={false}
         showsVerticalScrollIndicator={false}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollA}}}],
@@ -75,15 +71,15 @@ export default function ImageHeader(props) {
   );
 }
 const styles = {
-  TextTrans:(textAppear)=>{
+  TextTrans: textAppear => {
     return {
       height: 'auto',
       width: '100%',
       transform: [
         {
           translateY: textAppear.interpolate({
-            inputRange: [0,1],
-            outputRange: [height,0],
+            inputRange: [0, 1],
+            outputRange: [height, 0],
           }),
         },
       ],
